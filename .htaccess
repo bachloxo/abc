@@ -1,0 +1,31 @@
+#PAGESPEED
+#1. ADD CHARSET
+AddDefaultCharset UTF-8
+
+#3. ENABLED GZIP
+php_flag zlib.output_compression on
+<IfModule mod_deflate.c>
+	<FilesMatch ".(js|css|html|htm|php|xml)$">
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+</IfModule>
+
+#URL Friendly
+Options -Indexes
+RewriteEngine on
+
+#product
+RewriteRule ^san-pham\.html$ index.php?controller=product [QSA]
+RewriteRule ^([a-zA-Z0-9\-]+)-p([0-9]+)\.html$ index.php?controller=product&action=view&pid=$2
+#blog
+RewriteRule ^cham-soc-thu-nuoi\.html$ index.php?controller=blog [QSA]
+RewriteRule ^([a-zA-Z0-9\-]+)-b([0-9]+)\.html$ index.php?controller=blog&action=view&bid=$2
+#category
+RewriteRule ^([a-zA-Z0-9\-]+)-c([0-9]+)\.html$ index.php?controller=category&cid=$2 [QSA]
+
+#cart
+RewriteRule ^gio-hang.html$ index.php?controller=cart
+RewriteRule ^them-gio-hang.html$ index.php?controller=cart&action=add [QSA]
+RewriteRule ^xoa-gio-hang.html$ index.php?controller=cart&action=delete [QSA]
+RewriteRule ^don-hang.html$ index.php?controller=cart&action=order
+RewriteRule ^dat-hang.html$ index.php?controller=cart&action=send
